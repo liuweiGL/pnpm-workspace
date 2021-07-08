@@ -2,36 +2,23 @@
   "name": "@formily/react",
   "version": "2.0.0-beta.76",
   "license": "MIT",
-  "main": "lib",
-  "module": "esm",
-  "umd:main": "dist/formily.react.umd.production.js",
-  "unpkg": "dist/formily.react.umd.production.js",
-  "jsdelivr": "dist/formily.react.umd.production.js",
-  "jsnext:main": "esm",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/alibaba/formily.git"
+  "main": "src",
+  "publishConfig": {
+    "access": "public",
+    "main": "lib",
+    "module": "esm",
+    "umd:main": "dist/formily.react.umd.production.js",
+    "unpkg": "dist/formily.react.umd.production.js",
+    "jsdelivr": "dist/formily.react.umd.production.js",
+    "jsnext:main": "esm",
+    "types": "esm/index.d.ts"
   },
-  "types": "esm/index.d.ts",
-  "bugs": {
-    "url": "https://github.com/alibaba/formily/issues"
-  },
-  "homepage": "https://github.com/alibaba/formily#readme",
   "scripts": {
-    "start": "dumi dev",
     "build": "rimraf -rf lib esm dist && npm run build:cjs && npm run build:esm && npm run build:umd && npm run build:global",
     "build:cjs": "tsc --declaration",
     "build:esm": "tsc --declaration --module es2015 --outDir esm",
     "build:umd": "rollup --config",
-    "build:global": "ts-node ../../scripts/build-global",
-    "build:docs": "dumi build"
-  },
-  "peerDependencies": {
-    "@types/react": ">=16.8.0 || >=17.0.0",
-    "@types/react-dom": ">=16.8.0 || >=17.0.0",
-    "react": ">=16.8.0 || >=17.0.0",
-    "react-dom": ">=16.8.0 || >=17.0.0",
-    "react-is": ">=16.8.0 || >=17.0.0"
+    "build:global": "ts-node ../../scripts/build-global"
   },
   "dependencies": {
     "@formily/core": "2.0.0-beta.76",
@@ -42,7 +29,11 @@
     "@formily/validator": "2.0.0-beta.76",
     "hoist-non-react-statics": "^3.3.2"
   },
-  "publishConfig": {
-    "access": "public"
+  "peerDependencies": {
+    "@types/react": ">=16.8.0 || >=17.0.0",
+    "@types/react-dom": ">=16.8.0 || >=17.0.0",
+    "react": ">=16.8.0 || >=17.0.0",
+    "react-dom": ">=16.8.0 || >=17.0.0",
+    "react-is": ">=16.8.0 || >=17.0.0"
   }
 }

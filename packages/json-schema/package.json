@@ -2,21 +2,17 @@
   "name": "@formily/json-schema",
   "version": "2.0.0-beta.76",
   "license": "MIT",
-  "main": "lib",
-  "module": "esm",
-  "umd:main": "dist/formily.json-schema.umd.production.js",
-  "unpkg": "dist/formily.json-schema.umd.production.js",
-  "jsdelivr": "dist/formily.json-schema.umd.production.js",
-  "jsnext:main": "esm",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/alibaba/formily.git"
+  "main": "src",
+  "publishConfig": {
+    "access": "public",
+    "main": "lib",
+    "module": "esm",
+    "umd:main": "dist/formily.json-schema.umd.production.js",
+    "unpkg": "dist/formily.json-schema.umd.production.js",
+    "jsdelivr": "dist/formily.json-schema.umd.production.js",
+    "jsnext:main": "esm",
+    "types": "esm/index.d.ts"
   },
-  "types": "esm/index.d.ts",
-  "bugs": {
-    "url": "https://github.com/alibaba/formily/issues"
-  },
-  "homepage": "https://github.com/alibaba/formily#readme",
   "scripts": {
     "build": "rimraf -rf lib esm dist && npm run build:cjs && npm run build:esm && npm run build:umd && npm run build:global",
     "build:cjs": "tsc --declaration",
@@ -28,8 +24,5 @@
     "@formily/core": "2.0.0-beta.76",
     "@formily/reactive": "2.0.0-beta.76",
     "@formily/shared": "2.0.0-beta.76"
-  },
-  "publishConfig": {
-    "access": "public"
   }
 }

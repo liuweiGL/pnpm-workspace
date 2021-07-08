@@ -2,21 +2,17 @@
   "name": "@formily/path",
   "version": "2.0.0-beta.76",
   "license": "MIT",
-  "main": "lib",
-  "module": "esm",
-  "umd:main": "dist/formily.path.umd.production.js",
-  "unpkg": "dist/formily.path.umd.production.js",
-  "jsdelivr": "dist/formily.path.umd.production.js",
-  "jsnext:main": "esm",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/alibaba/formily.git"
+  "main": "src",
+  "publishConfig": {
+    "access": "public",
+    "main": "lib",
+    "module": "esm",
+    "umd:main": "dist/formily.path.umd.production.js",
+    "unpkg": "dist/formily.path.umd.production.js",
+    "jsdelivr": "dist/formily.path.umd.production.js",
+    "jsnext:main": "esm",
+    "types": "esm/index.d.ts"
   },
-  "types": "esm/index.d.ts",
-  "bugs": {
-    "url": "https://github.com/alibaba/formily/issues"
-  },
-  "homepage": "https://github.com/alibaba/formily#readme",
   "scripts": {
     "start": "dumi dev",
     "build": "rimraf -rf lib esm dist && npm run build:cjs && npm run build:esm && npm run build:umd",
@@ -25,8 +21,5 @@
     "build:umd": "rollup --config",
     "build:docs": "dumi build",
     "benchmark": "ts-node ./benchmark"
-  },
-  "publishConfig": {
-    "access": "public"
   }
 }

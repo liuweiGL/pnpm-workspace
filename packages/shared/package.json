@@ -2,23 +2,16 @@
   "name": "@formily/shared",
   "version": "2.0.0-beta.76",
   "license": "MIT",
-  "main": "lib",
-  "module": "esm",
-  "umd:main": "dist/formily.shared.umd.production.js",
-  "unpkg": "dist/formily.shared.umd.production.js",
-  "jsdelivr": "dist/formily.shared.umd.production.js",
-  "jsnext:main": "esm",
-  "types": "esm/index.d.ts",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/alibaba/formily.git"
-  },
-  "bugs": {
-    "url": "https://github.com/alibaba/formily/issues"
-  },
-  "homepage": "https://github.com/alibaba/formily#readme",
+  "main": "src",
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "main": "lib",
+    "module": "esm",
+    "umd:main": "dist/formily.shared.umd.production.js",
+    "unpkg": "dist/formily.shared.umd.production.js",
+    "jsdelivr": "dist/formily.shared.umd.production.js",
+    "jsnext:main": "esm",
+    "types": "esm/index.d.ts"
   },
   "scripts": {
     "build": "rimraf -rf lib esm dist && npm run build:cjs && npm run build:esm && npm run build:umd",
