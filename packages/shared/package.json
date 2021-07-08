@@ -1,6 +1,6 @@
 {
   "name": "@formily/shared",
-  "version": "2.0.0-beta.76",
+  "version": "2.0.0-beta.78",
   "license": "MIT",
   "main": "src",
   "publishConfig": {
@@ -21,7 +21,7 @@
     "version": "pnpm version"
   },
   "dependencies": {
-    "@formily/path": "2.0.0-beta.76",
+    "@formily/path": "workspace:*",
     "camel-case": "^4.1.1",
     "lower-case": "^2.0.1",
     "no-case": "^3.0.4",

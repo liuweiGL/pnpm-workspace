@@ -1,12 +1,12 @@
-import React, { useContext, Fragment } from 'react'
-import { ISchema, Schema } from '@formily/json-schema'
-import { RecursionField } from '../components'
-import { render } from '../shared/render'
+import React, { useContext, Fragment } from "react";
+import { Schema } from "@formily/json-schema";
+import { RecursionField } from "../components";
+import { render } from "../shared/render";
 import {
   SchemaMarkupContext,
   SchemaExpressionScopeContext,
   SchemaOptionsContext,
-} from '../shared'
+} from "../shared";
 import {
   ReactComponentPath,
   JSXComponent,
@@ -15,14 +15,14 @@ import {
   ISchemaFieldProps,
   ISchemaMarkupFieldProps,
   ISchemaTypeFieldProps,
-} from '../types'
+} from "../types";
 const env = {
   nonameId: 0,
-}
+};
 
 const getRandomName = () => {
-  return `NO_NAME_FIELD_$${env.nonameId++}`
-}
+  return `NO_NAME_FIELD_$${env.nonameId++}`;
+};
 
 export function createSchemaField<Components extends SchemaComponents>(
   options: ISchemaFieldFactoryOptions<Components> = {}
@@ -34,21 +34,21 @@ export function createSchemaField<Components extends SchemaComponents>(
     const schema = Schema.isSchemaInstance(props.schema)
       ? props.schema
       : new Schema({
-          type: 'object',
+          type: "object",
           ...props.schema,
-        })
+        });
     const renderMarkup = () => {
-      env.nonameId = 0
+      env.nonameId = 0;
       return render(
         <SchemaMarkupContext.Provider value={schema}>
           {props.children}
         </SchemaMarkupContext.Provider>
-      )
-    }
+      );
+    };
 
     const renderChildren = () => {
-      return <RecursionField {...props} schema={schema} />
-    }
+      return <RecursionField {...props} schema={schema} />;
+    };
 
     return (
       <SchemaOptionsContext.Provider
@@ -70,132 +70,132 @@ export function createSchemaField<Components extends SchemaComponents>(
           {renderChildren()}
         </SchemaExpressionScopeContext.Provider>
       </SchemaOptionsContext.Provider>
-    )
+    );
   }
 
-  SchemaField.displayName = 'SchemaField'
+  SchemaField.displayName = "SchemaField";
   function MarkupField<
     Decorator extends ReactComponentPath<Components>,
     Component extends ReactComponentPath<Components>
   >(
     props: ISchemaMarkupFieldProps<Components, Component, Decorator>
   ): React.ReactElement {
-    const parent = useContext(SchemaMarkupContext)
-    if (!parent) return <Fragment />
+    const parent = useContext(SchemaMarkupContext);
+    if (!parent) return <Fragment />;
     const renderChildren = () => {
-      return <React.Fragment>{props.children}</React.Fragment>
-    }
-    const appendArraySchema = (schema: ISchema) => {
+      return <React.Fragment>{props.children}</React.Fragment>;
+    };
+    const appendArraySchema = (schema: Formily.Schema.Types.ISchema) => {
       if (parent.items) {
-        return parent.addProperty(name, schema)
+        return parent.addProperty(name, schema);
       } else {
-        return parent.setItems(props)
+        return parent.setItems(props);
       }
-    }
-    const name = props.name || getRandomName()
-    if (parent.type === 'object' || parent.type === 'void') {
-      const schema = parent.addProperty(name, props)
+    };
+    const name = props.name || getRandomName();
+    if (parent.type === "object" || parent.type === "void") {
+      const schema = parent.addProperty(name, props);
       return (
         <SchemaMarkupContext.Provider value={schema}>
           {renderChildren()}
         </SchemaMarkupContext.Provider>
-      )
-    } else if (parent.type === 'array') {
-      const schema = appendArraySchema(props)
+      );
+    } else if (parent.type === "array") {
+      const schema = appendArraySchema(props);
       return (
         <SchemaMarkupContext.Provider
           value={Array.isArray(schema) ? schema[0] : schema}
         >
           {props.children}
         </SchemaMarkupContext.Provider>
-      )
+      );
     } else {
-      return renderChildren()
+      return renderChildren();
     }
   }
 
-  MarkupField.displayName = 'MarkupField'
+  MarkupField.displayName = "MarkupField";
 
   function StringField<
     Decorator extends ReactComponentPath<Components>,
     Component extends ReactComponentPath<Components>
   >(props: ISchemaTypeFieldProps<Components, Component, Decorator>) {
     //@ts-ignore
-    return <MarkupField {...props} type="string" />
+    return <MarkupField {...props} type="string" />;
   }
 
-  StringField.displayName = 'StringField'
+  StringField.displayName = "StringField";
 
   function ObjectField<
     Decorator extends ReactComponentPath<Components>,
     Component extends ReactComponentPath<Components>
   >(props: ISchemaTypeFieldProps<Components, Component, Decorator>) {
-    return <MarkupField {...props} type="object" />
+    return <MarkupField {...props} type="object" />;
   }
 
-  ObjectField.displayName = 'ObjectField'
+  ObjectField.displayName = "ObjectField";
 
   function ArrayField<
     Decorator extends ReactComponentPath<Components>,
     Component extends ReactComponentPath<Components>
   >(props: ISchemaTypeFieldProps<Components, Component, Decorator>) {
-    return <MarkupField {...props} type="array" />
+    return <MarkupField {...props} type="array" />;
   }
 
-  ArrayField.displayName = 'ArrayField'
+  ArrayField.displayName = "ArrayField";
   function BooleanField<
     Decorator extends ReactComponentPath<Components>,
     Component extends ReactComponentPath<Components>
   >(props: ISchemaTypeFieldProps<Components, Component, Decorator>) {
-    return <MarkupField {...props} type="boolean" />
+    return <MarkupField {...props} type="boolean" />;
   }
 
-  BooleanField.displayName = 'BooleanField'
+  BooleanField.displayName = "BooleanField";
 
   function NumberField<
     Decorator extends ReactComponentPath<Components>,
     Component extends ReactComponentPath<Components>
   >(props: ISchemaTypeFieldProps<Components, Component, Decorator>) {
-    return <MarkupField {...props} type="number" />
+    return <MarkupField {...props} type="number" />;
   }
 
-  NumberField.displayName = 'NumberField'
+  NumberField.displayName = "NumberField";
 
   function DateField<
     Decorator extends ReactComponentPath<Components>,
     Component extends ReactComponentPath<Components>
   >(props: ISchemaTypeFieldProps<Components, Component, Decorator>) {
-    return <MarkupField {...props} type="date" />
+    return <MarkupField {...props} type="date" />;
   }
 
-  DateField.displayName = 'DateField'
+  DateField.displayName = "DateField";
 
   function DateTimeField<
     Decorator extends ReactComponentPath<Components>,
     Component extends ReactComponentPath<Components>
   >(props: ISchemaTypeFieldProps<Components, Component, Decorator>) {
-    return <MarkupField {...props} type="datetime" />
+    return <MarkupField {...props} type="datetime" />;
   }
 
-  DateTimeField.displayName = 'DateTimeField'
+  DateTimeField.displayName = "DateTimeField";
 
   function VoidField<
     Decorator extends ReactComponentPath<Components>,
     Component extends ReactComponentPath<Components>
   >(props: ISchemaTypeFieldProps<Components, Component, Decorator>) {
-    return <MarkupField {...props} type="void" />
+    return <MarkupField {...props} type="void" />;
   }
 
-  VoidField.displayName = 'VoidField'
+  VoidField.displayName = "VoidField";
 
-  SchemaField.Markup = MarkupField
-  SchemaField.String = StringField
-  SchemaField.Object = ObjectField
-  SchemaField.Array = ArrayField
-  SchemaField.Boolean = BooleanField
-  SchemaField.Date = DateField
-  SchemaField.DateTime = DateTimeField
-  SchemaField.Void = VoidField
-  SchemaField.Number = NumberField
-  return SchemaField
+  SchemaField.Markup = MarkupField;
+  SchemaField.String = StringField;
+  SchemaField.Object = ObjectField;
+  SchemaField.Array = ArrayField;
+  SchemaField.Boolean = BooleanField;
+  SchemaField.Date = DateField;
+  SchemaField.DateTime = DateTimeField;
+  SchemaField.Void = VoidField;
+  SchemaField.Number = NumberField;
+  return SchemaField;
 }

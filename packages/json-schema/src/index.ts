@@ -1,2 +1,4 @@
+/// <reference path="global.d.ts" />
+
 export * from './schema'
-export * from './types'
+

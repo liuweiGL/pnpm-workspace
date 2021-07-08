@@ -1,6 +1,6 @@
 {
   "name": "@formily/validator",
-  "version": "2.0.0-beta.76",
+  "version": "2.0.0-beta.78",
   "license": "MIT",
   "main": "src",
   "publishConfig": {
@@ -21,6 +21,6 @@
     "version": "pnpm version"
   },
   "dependencies": {
-    "@formily/shared": "2.0.0-beta.76"
+    "@formily/shared": "workspace:*"
   }
 }

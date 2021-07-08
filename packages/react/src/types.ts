@@ -1,16 +1,16 @@
-import { ISchema, Schema, SchemaKey } from '@formily/json-schema'
-import { FormPathPattern } from '@formily/shared'
+import { Schema } from "@formily/json-schema";
+import { FormPathPattern } from "@formily/shared";
 
 export type JSXComponent =
   | keyof JSX.IntrinsicElements
-  | React.JSXElementConstructor<any>
+  | React.JSXElementConstructor<any>;
 
 export type IProviderProps = {
-  form: Formily.Core.Models.Form
-}
+  form: Formily.Core.Models.Form;
+};
 
 export interface IFormSpyProps {
-  children?: (form: Formily.Core.Models.Form) => React.ReactChild
+  children?: (form: Formily.Core.Models.Form) => React.ReactChild;
 }
 
 export interface IFieldProps<
@@ -20,9 +20,9 @@ export interface IFieldProps<
 > extends Formily.Core.Types.IFieldFactoryProps<D, C> {
   children?:
     | ((field: Field, form: Formily.Core.Models.Form) => React.ReactChild)
-    | React.ReactNode
-  decorator?: [] | [D] | [D, React.ComponentProps<D>] | any[]
-  component?: [] | [C] | [C, React.ComponentProps<C>] | any[]
+    | React.ReactNode;
+  decorator?: [] | [D] | [D, React.ComponentProps<D>] | any[];
+  component?: [] | [C] | [C, React.ComponentProps<C>] | any[];
 }
 
 export interface IVoidFieldProps<
@@ -32,28 +32,28 @@ export interface IVoidFieldProps<
 > extends Formily.Core.Types.IVoidFieldFactoryProps<D, C> {
   children?:
     | ((field: Field, form: Formily.Core.Models.Form) => React.ReactChild)
-    | React.ReactNode
-  decorator?: [] | [D] | [D, React.ComponentProps<D>] | any[]
-  component?: [] | [C] | [C, React.ComponentProps<C>] | any[]
+    | React.ReactNode;
+  decorator?: [] | [D] | [D, React.ComponentProps<D>] | any[];
+  component?: [] | [C] | [C, React.ComponentProps<C>] | any[];
 }
 
 export interface IComponentMapper<T extends JSXComponent> {
-  (target: T): JSXComponent
+  (target: T): JSXComponent;
 }
 
 export type IStateMapper<Props> =
   | {
-      [key in keyof Formily.Core.Models.Field]?: keyof Props | boolean
+      [key in keyof Formily.Core.Models.Field]?: keyof Props | boolean;
     }
-  | ((props: Props, field: Formily.Core.Types.GeneralField) => Props)
+  | ((props: Props, field: Formily.Core.Types.GeneralField) => Props);
 
-export type SchemaComponents = Record<string, JSXComponent>
+export type SchemaComponents = Record<string, JSXComponent>;
 
 export interface ISchemaFieldFactoryOptions<
   Components extends SchemaComponents = any
 > {
-  components?: Components
-  scope?: any
+  components?: Components;
+  scope?: any;
 }
 
 export interface ISchemaFieldProps<
@@ -62,41 +62,41 @@ export interface ISchemaFieldProps<
   InnerField = Formily.Core.Models.ObjectField<Decorator, Component>
 > extends Omit<
     Formily.Core.Types.IFieldFactoryProps<Decorator, Component, InnerField>,
-    'name'
+    "name"
   > {
-  schema?: ISchema
+  schema?: Formily.Schema.Types.ISchema;
   components?: {
-    [key: string]: JSXComponent
-  }
-  scope?: any
-  name?: SchemaKey
-  children?: React.ReactNode
+    [key: string]: JSXComponent;
+  };
+  scope?: any;
+  name?: Formily.Schema.Types.SchemaKey;
+  children?: React.ReactNode;
 }
 
 export interface ISchemaFieldUpdateRequest {
-  state?: Formily.Core.Types.IFieldState
-  schema?: ISchema
-  run?: string
+  state?: Formily.Core.Types.IFieldState;
+  schema?: Formily.Schema.Types.ISchema;
+  run?: string;
 }
 
 export interface ISchemaMapper {
-  (schema: Schema, name: SchemaKey): Schema
+  (schema: Schema, name: Formily.Schema.Types.SchemaKey): Schema;
 }
 
 export interface ISchemaFilter {
-  (schema: Schema, name: SchemaKey): boolean
+  (schema: Schema, name: Formily.Schema.Types.SchemaKey): boolean;
 }
 export interface IRecursionFieldProps {
-  schema: Schema
-  name?: SchemaKey
-  basePath?: FormPathPattern
-  onlyRenderProperties?: boolean
-  onlyRenderSelf?: boolean
-  mapProperties?: ISchemaMapper
-  filterProperties?: ISchemaFilter
+  schema: Schema;
+  name?: Formily.Schema.Types.SchemaKey;
+  basePath?: FormPathPattern;
+  onlyRenderProperties?: boolean;
+  onlyRenderSelf?: boolean;
+  mapProperties?: ISchemaMapper;
+  filterProperties?: ISchemaFilter;
 }
 
-export type ObjectKey = string | number | boolean | symbol
+export type ObjectKey = string | number | boolean | symbol;
 
 export type Path<T, Key extends keyof T = keyof T> = Key extends string
   ? T[Key] extends Record<string, any>
@@ -106,23 +106,25 @@ export type Path<T, Key extends keyof T = keyof T> = Key extends string
         | `${Key}.${Exclude<keyof T[Key], keyof Array<any>> & string}`
         | Key
     : Key
-  : never
+  : never;
 
-export type PathValue<T, P extends Path<T>> =
-  P extends `${infer Key}.${infer Rest}`
-    ? Key extends keyof T
-      ? Rest extends Path<T[Key]>
-        ? PathValue<T[Key], Rest>
-        : never
+export type PathValue<
+  T,
+  P extends Path<T>
+> = P extends `${infer Key}.${infer Rest}`
+  ? Key extends keyof T
+    ? Rest extends Path<T[Key]>
+      ? PathValue<T[Key], Rest>
       : never
-    : P extends keyof T
-    ? T[P]
     : never
+  : P extends keyof T
+  ? T[P]
+  : never;
 
 export type KeyOfReactComponent<T> = Exclude<
   keyof T,
-  'contextTypes' | 'displayName' | 'propTypes' | 'defaultProps'
->
+  "contextTypes" | "displayName" | "propTypes" | "defaultProps"
+>;
 
 export type ReactComponentPath<
   T,
@@ -134,7 +136,7 @@ export type ReactComponentPath<
             string}`
         | Key
     : Key
-  : never
+  : never;
 
 export type ReactComponentPropsByPathValue<
   T extends Record<string, any>,
@@ -147,12 +149,12 @@ export type ReactComponentPropsByPathValue<
     : React.ComponentProps<T[P]>
   : P extends keyof T
   ? React.ComponentProps<T[P]>
-  : never
+  : never;
 export interface ISchemaMarkupFieldProps<
   Components extends SchemaComponents,
   Decorator extends ReactComponentPath<Components>,
   Component extends ReactComponentPath<Components>
-> extends ISchema<
+> extends Formily.Schema.Types.ISchema<
     Decorator,
     Component,
     ReactComponentPropsByPathValue<Components, Decorator>,
@@ -163,15 +165,15 @@ export interface ISchemaMarkupFieldProps<
     React.ReactNode,
     Formily.Core.Types.GeneralField
   > {
-  children?: React.ReactNode
+  children?: React.ReactNode;
 }
 
 export type ISchemaTypeFieldProps<
   Components extends SchemaComponents,
   Decorator extends ReactComponentPath<Components>,
   Component extends ReactComponentPath<Components>
-> = Omit<ISchemaMarkupFieldProps<Components, Decorator, Component>, 'type'>
+> = Omit<ISchemaMarkupFieldProps<Components, Decorator, Component>, "type">;
 
 export interface ISchemaTransformerOptions extends ISchemaFieldFactoryOptions {
-  required?: ISchema['required']
+  required?: Formily.Schema.Types.ISchema["required"];
 }

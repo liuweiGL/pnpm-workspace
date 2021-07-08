@@ -1,6 +1,6 @@
 import path from "path";
 import typescript from "rollup-plugin-typescript2";
-import resolve from " @rollup/plugin-node-resolve";
+import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import externalGlobals from "rollup-plugin-external-globals";
 import injectProcessEnv from "rollup-plugin-inject-process-env";
